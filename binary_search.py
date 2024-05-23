@@ -35,6 +35,25 @@ def nrec_binary_search(arr, elt):
     # print(f'last index checked was {mid} and {elt} was not found.')
     return None
 
+def subsearcher(arr, elt, left, right):
+    if left > right:
+        return None
+    mid = (left+right)//2
+    if arr[mid] == elt:
+        # print(f'FOUND IT at index {mid}')
+        return mid
+    elif arr[mid] > elt:
+        return subsearcher(arr, elt, left, (mid-1))
+    else:
+        return subsearcher(arr, elt, mid+1, right)
+
+def rec_binary_search(arr, elt):
+    if len(arr) < 1:
+        return None
+    left = 0
+    right = len(arr) - 1
+    return subsearcher(arr, elt, left, right)
+
 test_inputs = [["Set 48", -291, -287, -278, -260, -249, -208, -187, -184, -178, -171, -170, -151, -142, -132, -115, -109, -99, -77, -69, -61, -56, -52, -45, -41, -31, -9, 0, 30, 54, 63, 95, 106, 109, 120, 136, 137, 156, 176, 191, 200, 201, 217, 227, 256, 261, 271, 276, 287, 296, 297],
 ["Set 8", -296, -288, -268, -260, -231, -194, -133, -127, -120, -119, -115, -97, -95, -90, -86, -85, -82, -79, -68, -66, -52, -44, -6, -2, 2, 12, 28, 33, 52, 55, 73, 89, 101, 127, 169, 170, 176, 183, 189, 200, 202, 215, 238, 250, 266, 274, 281, 282, 286, 293],
 ["Set 50", -287, -286, -270, -267, -264, -218, -201, -200, -196, -181, -174, -169, -166, -163, -155, -154, -153, -151, -130, -123, -120, -95, -66, -62, -29, -27, -26, -16, -9, 22, 23, 33, 45, 48, 84, 114, 125, 129, 137, 138, 148, 150, 151, 153, 159, 169, 174, 262, 269, 285],
@@ -108,7 +127,7 @@ for arr in test_inputs:
         except:
             ans = None
         
-        my_ans = nrec_binary_search(test_arr, elt)
+        my_ans = rec_binary_search(test_arr, elt)
 
         if my_ans == ans:
             result = 'correct'
@@ -132,3 +151,7 @@ for res in results:
 #Debugging
 
 # nrec_binary_search([-28, -23, -21, -15, -14, -9, -7, -5, -3, 2, 3, 4, 9, 10, 14, 17, 20, 23, 26, 29], 29)
+
+# #debugging rec_binary_search
+# test_input = [-296, -288, -268, -260, -231, -194, -133, -127, -120, -119, -115, -97, -95, -90, -86, -85, -82, -79, -68, -66, -52, -44, -6, -2, 2, 12, 28, 33, 52, 55, 73, 89, 101, 127, 169, 170, 176, 183, 189, 200, 202, 215, 238, 250, 266, 274, 281, 282, 286, 293]
+# rec_binary_search(test_input, -133)
