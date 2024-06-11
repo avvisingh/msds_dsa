@@ -1,5 +1,4 @@
-# Bubble Up is one of the Key "primitive" operations we were introduced to in the lectures
-# We use bubble up when a child element is in the in-correct relation with its parent
+from bubble_up import bubble_up
 
 # Min Heaps to use for testing
 # [-15, -10, -5, 0, 5, 10, 15, 20, 25, 30]
@@ -25,34 +24,13 @@
 # [30, 27, 24, 21, 18, 15, 12, 9, 6, 3, 0, -3, -6, -9, -12]
 # [31, 28, 25, 22, 19, 16, 13, 10, 7, 4, 1, -2, -5, -8, -11]
 
-# test_arr = [31, 28, 25, 22, 19, 16, 13, 10, 7, 4, 1, -2, -5, -8, -11, 27]
-# print(f'Testing with the following heap: {test_arr}')
+test_arr = [31, 28, 25, 22, 19, 16, 13, 10, 7, 4, 1, -2, -5, -8, -11]
+print(f'Testing with the following heap: {test_arr}')
 
-def bubble_up_func(arr, j, heap):
-  heap_index = j
-  arr_index = j-1
+def insert_heap(arr, elt, heap):
+  arr.append(elt)
+  print(f'array after append: {arr}')
+  return bubble_up(arr, len(arr), heap)
 
-  if heap_index <= 1:
-    return
-  
-  if heap.lower() == 'min':
-    child = arr_index
-    parent = (heap_index//2) - 1
-
-    if arr[child] < arr[parent]:
-      elt = arr[child]
-      arr[child] = arr[parent]
-      arr[parent] = elt
-      bubble_up_func(arr, heap_index//2, heap)
-  else:
-    child = arr_index
-    parent = (heap_index//2) - 1
-
-    if arr[child] > arr[parent]:
-      elt = arr[child]
-      arr[child] = arr[parent]
-      arr[parent] = elt
-      bubble_up_func(arr, heap_index//2, heap)
-
-# bubble_up_func(test_arr, len(test_arr), 'max')
-# print(f'Bubble Up completed. Output: {test_arr}')
+insert_heap(test_arr, 27, 'max')
+print(f'Bubble Up completed. Output: {test_arr}')

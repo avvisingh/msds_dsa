@@ -25,36 +25,49 @@
 # [30, 27, 24, 21, 18, 15, 12, 9, 6, 3, 0, -3, -6, -9, -12]
 # [31, 28, 25, 22, 19, 16, 13, 10, 7, 4, 1, -2, -5, -8, -11]
 
-test_arr = [33, -7, -2, 3, 9, 14, 19, 24, 29, 34]
-print(f'Testing with the following heap: {test_arr}')
+# test_arr = [31, -11, 25, 22, 19, 16, 13, 10, 7, 4, 1, -2, -5, -8]
+# print(f'Testing with the following heap: {test_arr}')
 
-def bubble_down(arr, j, heap):
-  j+=1
-  left_child = j*2
-  right_child = j*2 + 1
-  n = len(arr)
+def bubble_down_func(arr, j, heap):
+  heap_len = len(arr)
+  left_ch = (j*2)
+  right_ch = left_ch + 1
 
-  if(left_child > n): # If True, then j has no children (is already a leaf)
-    # In the lectures, we check for if left_child > n because we assume a 1-indexed heap for teaching purposes
-    return
+  if left_ch > heap_len:
+    return # left_ch does not exist meaning that the elt at arr[arr_index] is already a leaf
   
+  parent = arr[j-1]
+  left_ch_elt = arr[left_ch-1]
+  right_ch_elt = arr[right_ch-1]
+
   if heap.lower() == 'min':
-    if (left_child <= n) and (right_child > n): # If True, then j has only a left child and no right child
-      if arr[j-1] > arr[left_child-1]:
-        elt = arr[j-1]
-        arr[j-1] = arr[left_child-1]
-        arr[left_child-1] = elt
-        return
+    if left_ch <= heap_len and right_ch > heap_len:
+      if parent >= left_ch_elt:
+        elt = parent
+        arr[j-1] = left_ch_elt
+        arr[left_ch-1] = elt
     else:
-      if arr[left_child-1] <= arr[right_child]-1: smallest = left_child
-      else: smallest = right_child
+      lower = left_ch if left_ch_elt <= right_ch_elt else right_ch
+      lower_elt = arr[lower-1]
+      if parent > lower_elt:
+        elt = parent
+        arr[j-1] = lower_elt
+        arr[lower-1] = elt
+        bubble_down_func(arr, lower, 'min')
+  else:
+    if left_ch <= heap_len and right_ch > heap_len:
+      if parent <= left_ch_elt:
+        elt = parent
+        arr[j-1] = left_ch_elt
+        arr[left_ch-1] = elt
+    else:
+      larger = left_ch if left_ch_elt >= right_ch_elt else right_ch
+      larger_elt = arr[larger-1]
+      if parent < larger_elt:
+        elt = parent
+        arr[j-1] = larger_elt
+        arr[larger-1] = elt
+        bubble_down_func(arr, larger, 'max')
 
-      if arr[j-1] > arr[smallest-1]:
-        elt = arr[j-1]
-        arr[j-1] = arr[smallest-1]
-        arr[smallest-1] = elt
-        bubble_down(arr, smallest-1, 'min')
-
-
-bubble_down(test_arr, 0, 'min')
-print(f'Bubble Down completed. Output: {test_arr}')
+# bubble_down_func(test_arr, 2, 'max')
+# print(f'Bubble Down completed. Output: {test_arr}')
