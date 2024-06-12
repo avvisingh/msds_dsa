@@ -35,19 +35,16 @@ def bubble_up_func(arr, j, heap):
   if heap_index <= 1:
     return
   
+  child = arr_index
+  parent = (heap_index//2) - 1
+  
   if heap.lower() == 'min':
-    child = arr_index
-    parent = (heap_index//2) - 1
-
     if arr[child] < arr[parent]:
       elt = arr[child]
       arr[child] = arr[parent]
       arr[parent] = elt
       bubble_up_func(arr, heap_index//2, heap)
   else:
-    child = arr_index
-    parent = (heap_index//2) - 1
-
     if arr[child] > arr[parent]:
       elt = arr[child]
       arr[child] = arr[parent]

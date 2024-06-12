@@ -1,4 +1,5 @@
 from bubble_down import bubble_down_func
+from bubble_up import bubble_up_func
 
 # Min Heaps to use for testing
 # [-15, -10, -5, 0, 5, 10, 15, 20, 25, 30]
@@ -24,13 +25,36 @@ from bubble_down import bubble_down_func
 # [30, 27, 24, 21, 18, 15, 12, 9, 6, 3, 0, -3, -6, -9, -12]
 # [31, 28, 25, 22, 19, 16, 13, 10, 7, 4, 1, -2, -5, -8, -11]
 
-test_arr = [-14, -11, -8, -5, -2, 1, 4, 7, 10, 13, 16, 19, 22, 25, 28]
+test_arr = [40, 1, 39, -1, 1, 38, 37, -2, -3, 0, -4, 37, 36, 36, 35]
 print(f'Testing with the following heap: {test_arr}')
 
 def heap_delete(arr, j, heap):
   arr[j-1] = arr[-1]
   arr.pop()
-  bubble_down_func(arr, j, heap)
+  
+  if j == 1:
+    # Element deleted was root element - only need to bubble down.
+    bubble_down_func(arr, j, heap)
+  else:
+    parent = j//2
+    left_child = j*2 if j*2 < len(arr) else None
+    right_child = left_child+1 if left_child != None else None
 
-heap_delete(test_arr, 1, 'min')
+    if left_child == None: # Element deleted has no children (is a leaf) - only need to bubble up
+      bubble_up_func(arr, j, heap)
+    else:
+      if heap.lower() == 'min':
+        if arr[j-1] < arr[parent-1]:
+          bubble_up_func(arr, j, heap)
+        else:
+          bubble_down_func(arr, j, heap)
+      else:
+        if arr[j-1] > arr[parent-1]:
+          bubble_up_func(arr, j, heap)
+        else:
+          bubble_down_func(arr, j, heap)
+
+
+
+heap_delete(test_arr, 9, 'max')
 print(f'Bubble Down completed. Output: {test_arr}')
