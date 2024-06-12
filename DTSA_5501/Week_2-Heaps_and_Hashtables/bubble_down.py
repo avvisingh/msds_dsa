@@ -38,7 +38,6 @@ def bubble_down_func(arr, j, heap):
   
   parent = arr[j-1]
   left_ch_elt = arr[left_ch-1]
-  right_ch_elt = arr[right_ch-1]
 
   if heap.lower() == 'min':
     if left_ch <= heap_len and right_ch > heap_len:
@@ -47,6 +46,7 @@ def bubble_down_func(arr, j, heap):
         arr[j-1] = left_ch_elt
         arr[left_ch-1] = elt
     else:
+      right_ch_elt = arr[right_ch-1]
       lower = left_ch if left_ch_elt <= right_ch_elt else right_ch
       lower_elt = arr[lower-1]
       if parent > lower_elt:
@@ -61,6 +61,7 @@ def bubble_down_func(arr, j, heap):
         arr[j-1] = left_ch_elt
         arr[left_ch-1] = elt
     else:
+      right_ch_elt = arr[right_ch-1]
       larger = left_ch if left_ch_elt >= right_ch_elt else right_ch
       larger_elt = arr[larger-1]
       if parent < larger_elt:
