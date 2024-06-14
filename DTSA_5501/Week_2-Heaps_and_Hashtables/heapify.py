@@ -11,7 +11,7 @@ from bubble_down import bubble_down_func
 # [0, 13, 24, -10, 17, -1, 8, 29, 6, -15]
 # [18, 4, -4, 10, 3, -9, 21, 7, 26, -12]
 
-test_arr = [28, -9, 7, 10, -13, 19, 1, 23, 5, 14]
+test_arr = [40, 1, 39, -1, 1, 38, 37, -2, -3, 0, -4, 37, 36, 36, 35, -100]
 print(f'Testing with the following array: {test_arr}')
 
 def heapify(arr, heap):
